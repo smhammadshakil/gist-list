@@ -1,11 +1,11 @@
-import './App.css';
+import '../css/App.css';
 import React, { useState, useEffect } from 'react';
-import dataService from './dataService';
+import dataService from '../services/dataService';
 
 function ForkedUsers({ forkUrl }) {
     const [forkedOwners, setForkedOwners] = useState([])
 
-    function getForkedDetails() {
+    const getForkedDetails = () => {
         if (forkUrl) {
             const url = forkUrl + '?per_page=3'
             dataService.getForkedDetails(url)

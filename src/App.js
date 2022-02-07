@@ -1,7 +1,7 @@
-import './App.css';
+import './css/App.css';
 import React, { useState, useEffect } from 'react';
-import Gist from './Gist'
-import dataService from './dataService'
+import Gist from './components/Gist'
+import dataService from './services/dataService'
 
 function App() {
   const [userName, setUserName] = useState('')
@@ -9,7 +9,7 @@ function App() {
   const [gist, setGist] = useState([])
   const [loader, setLoader] = useState(false)
 
-  function getData() {
+  const getData = () => {
     // m1guelpf dideler
     if (userName) {
       setLoader(true)
