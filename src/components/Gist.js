@@ -3,7 +3,6 @@ import moment from 'moment';
 import ForkedUsers from './ForkedUsers';
 
 function Gist({ gist, loader, setPage, page }) {
-  console.log(gist)
 
   return (
     <div>
@@ -23,7 +22,7 @@ function Gist({ gist, loader, setPage, page }) {
                                 Object.keys(item.files).map(tag => <span key={tag} className="tag">{item.files[tag].type}</span>)
                             }
                         </div>
-                        <ForkedUsers forkUrl={item.forks_url}/>
+                        <ForkedUsers id={item.id}/>
                     </div>
                 ) : ''
             }

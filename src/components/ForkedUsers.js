@@ -2,15 +2,14 @@ import '../css/App.css';
 import React, { useState, useEffect } from 'react';
 import dataService from '../services/dataService';
 
-function ForkedUsers({ forkUrl }) {
+function ForkedUsers({ id }) {
     const [forkedOwners, setForkedOwners] = useState([])
 
-    const getForkedDetails = () => {
-        if (forkUrl) {
-            const url = forkUrl + '?per_page=3'
+    useEffect(() => {
+        if (id) {
+            const url = id + '?per_page=3'
             dataService.getForkedDetails(url)
                 .then(res => {
-                    console.log(res)
                     if (res.length) {
                         setForkedOwners(res)
                     }
@@ -19,20 +18,15 @@ function ForkedUsers({ forkUrl }) {
                     console.log('Unable to connect to server')
                 })
         }
-    }
-    useEffect(getForkedDetails, [])
+    }, [id])
 
-  return (
-    <>
-        {
-            forkedOwners.length ? 
-            <div className="fork">
-                <b>Forked By: </b>
-                {forkedOwners.map(fork => <img alt="avatar" key={fork.id} className="avatar" src={fork.owner.avatar_url} />)}
-            </div> : ''
-        }
-    </>
-  );
+    if (forkedOwners.length) return null
+    return (
+        <div className="fork">
+            <b>Forked By: </b>
+            {forkedOwners.map(fork => <img alt="avatar" key={fork.id} className="avatar" src={fork.owner.avatar_url} />)}
+        </div>
+    );
 }
 
 export default ForkedUsers;

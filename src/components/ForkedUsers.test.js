@@ -1,7 +1,7 @@
 import ForkedUsers from './ForkedUsers'
 
 describe('<Login /> with no props', () => {
-    const container = shallow(<ForkedUsers forkUrl={'url'} />);
+    const container = shallow(<ForkedUsers id={'id'} />);
     it('should match the snapshot', () => {
       expect(container.html()).toMatchSnapshot();
     });

@@ -26,7 +26,7 @@ function App() {
     }
   }
 
-  useEffect(getData, [page])
+  useEffect(getData, [page, userName])
   return (
     <div className="App">
       <div className="header">GIST search by username</div>
