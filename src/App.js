@@ -1,23 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
+import Gist from './Gist'
+import dataService from './dataService'
 
 function App() {
+  const [userName, setUserName] = useState('')
+  const [page, setPage] = useState(1)
+  const [gist, setGist] = useState([])
+  const [loader, setLoader] = useState(false)
+
+  function getData() {
+    // m1guelpf dideler
+    if (userName) {
+      setLoader(true)
+      dataService.getGist(userName, page)
+        .then(res => {
+          setGist(res)
+        })
+        .catch(() => {
+            console.log('Unable to connect to server')
+        })
+        .finally(() => {
+          setLoader(false)
+        })
+    }
+  }
+
+  useEffect(getData, [page])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="header">GIST search by username</div>
+      <div className="search">
+        <input onChange={(e) => setUserName(e.target.value)} value={userName} className="input" placeholder="Enter username..." />
+        <button className="submit" disabled={!userName} onClick={getData}>Search</button>
+      </div>
+      <Gist
+        gist={gist}
+        page={page}
+        loader={loader}
+        setPage={setPage}
+      />
     </div>
   );
 }
