@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# GITHUB GIST SEARCH BY USERNAME
+
+![Demo](/demo.gif)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

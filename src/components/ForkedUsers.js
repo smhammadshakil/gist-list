@@ -7,8 +7,7 @@ function ForkedUsers({ id }) {
 
     useEffect(() => {
         if (id) {
-            const url = id + '?per_page=3'
-            dataService.getForkedDetails(url)
+            dataService.getForkedDetails(id)
                 .then(res => {
                     if (res.length) {
                         setForkedOwners(res)
@@ -20,7 +19,7 @@ function ForkedUsers({ id }) {
         }
     }, [id])
 
-    if (forkedOwners.length) return null
+    if (!forkedOwners.length) return null
     return (
         <div className="fork">
             <b>Forked By: </b>

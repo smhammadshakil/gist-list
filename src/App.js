@@ -10,7 +10,7 @@ function App() {
   const [loader, setLoader] = useState(false)
 
   const getData = () => {
-    // m1guelpf dideler
+    // m1guelpf fabpot
     if (userName) {
       setLoader(true)
       dataService.getGist(userName, page)
@@ -25,14 +25,20 @@ function App() {
         })
     }
   }
-
-  useEffect(getData, [page, userName])
+  const onSearch = () => {
+    if (page === 1) {
+      getData()
+      return
+    }
+    setPage(1)
+  }
+  useEffect(getData, [page])
   return (
     <div className="App">
       <div className="header">GIST search by username</div>
       <div className="search">
         <input onChange={(e) => setUserName(e.target.value)} value={userName} className="input" placeholder="Enter username..." />
-        <button className="submit" disabled={!userName} onClick={getData}>Search</button>
+        <button className="submit" disabled={!userName} onClick={onSearch}>Search</button>
       </div>
       <Gist
         gist={gist}

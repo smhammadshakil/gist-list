@@ -1,7 +1,7 @@
 
 const baseURL = 'https://api.github.com'
 const users = `${baseURL}/users`
-const forkUrl = `${baseURL}/gists`
+const gist = `${baseURL}/gists`
 
 const pageLimit = 3
 
@@ -11,7 +11,7 @@ const getGist = (userName = '', page = 1) => {
 }
 
 const getForkedDetails = (id) => {
-    const url = `${forkUrl}/${id}`
+    const url = `${gist}/${id}/forks?per_page=3`
     return fetch(url).then(res => res.json())
 }
 
