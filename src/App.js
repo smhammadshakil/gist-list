@@ -1,5 +1,5 @@
 import './css/App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Gist from './components/Gist'
 import dataService from './services/dataService'
 
@@ -9,30 +9,19 @@ function App() {
   const [gist, setGist] = useState([])
   const [loader, setLoader] = useState(false)
 
-  const getData = () => {
-    // m1guelpf fabpot
-    if (userName) {
+  const getData = async (userN, p = 1) => {
       setLoader(true)
-      dataService.getGist(userName, page)
-        .then(res => {
-          setGist(res)
-        })
-        .catch(() => {
-            console.log('Unable to connect to server')
-        })
-        .finally(() => {
-          setLoader(false)
-        })
-    }
+      const resp = await dataService.getGist(userN, p)
+      setGist(resp)
+      setLoader(false)
   }
   const onSearch = () => {
-    if (page === 1) {
-      getData()
-      return
-    }
-    setPage(1)
+    getData(userName, 1)
   }
-  useEffect(getData, [page])
+  const onChangePage = (page) => {
+    setPage(page)
+    getData(userName, page)
+  }
   return (
     <div className="App">
       <div className="header">GIST search by username</div>
@@ -44,7 +33,7 @@ function App() {
         gist={gist}
         page={page}
         loader={loader}
-        setPage={setPage}
+        setPage={onChangePage}
       />
     </div>
   );

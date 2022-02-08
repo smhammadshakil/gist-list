@@ -2,21 +2,17 @@ import '../css/App.css';
 import React, { useState, useEffect } from 'react';
 import dataService from '../services/dataService';
 
-function ForkedUsers({ id }) {
+function ForkedUsers({ id = '' }) {
     const [forkedOwners, setForkedOwners] = useState([])
 
     useEffect(() => {
-        if (id) {
-            dataService.getForkedDetails(id)
-                .then(res => {
-                    if (res.length) {
-                        setForkedOwners(res)
-                    }
-                })
-                .catch(() => {
-                    console.log('Unable to connect to server')
-                })
+        const fetchForkData = async () => {
+            if (id) {
+                const resp = await dataService.getForkedDetails(id)
+                setForkedOwners(resp || [])
+            }
         }
+        fetchForkData()
     }, [id])
 
     if (!forkedOwners.length) return null
